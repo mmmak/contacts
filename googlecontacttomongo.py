@@ -1,5 +1,12 @@
 import csv
+from pymongo import Connection
 from itertools import izip
+
+# connect to mongo
+connection = Connection("192.168.1.200", 27017)
+db = connection.contacts
+gcol = db.gcontacts
+
 
 reader = csv.reader(open("contacts.csv", "rb"), csv.excel)
 
@@ -15,8 +22,11 @@ for row in reader:
         keyval = property.next()
         if "Priority" != key:
             if len(keyval) > 0:
-                data[key] = keyval
+                data[key] = keyval.decode("utf-8", "replace")
                 counts[key] = counts.get(key, 0) + 1
+    print "About to insert into Mongo:"
+    print data
+    gcol.insert(data)
     out += [data]
 print out
 
