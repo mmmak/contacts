@@ -26,6 +26,7 @@ for row in reader:
                 counts[key] = counts.get(key, 0) + 1
     print "About to insert into Mongo:"
     print data
+    print "Inserted"
     gcol.insert(data)
     out += [data]
 print out
