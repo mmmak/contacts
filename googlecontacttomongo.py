@@ -19,6 +19,8 @@ for row in reader:
                 counts[key] = counts.get(key, 0) + 1
     out += [data]
 print out
+
+print "totals:"
 print counts
 
 
